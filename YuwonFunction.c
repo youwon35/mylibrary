@@ -78,23 +78,21 @@ char *multiple_change_formula(int index, int k) {
   printf("\nChanged : ");
   for (int i = 0; i < 26; i++) {
     int last = ((alph[i] - 64) * index + k) % 26;
-    if ( last !=0){
+    if (last != 0) {
       alph_c[i] = last + 64;
     } else {
       alph_c[i] = last + 90;
-    
     }
-     printf("%3c", alph_c[i]);
-  
-    }
+    printf("%3c", alph_c[i]);
+  }
   printf("\n");
-  
+
   return alph_c;
 }
 
 //카이사르 암호변환하여 return////////////////
-void multiple_change(char *str,int length, int index, int k) {
-  
+void multiple_change(char *str, int length, int index, int k) {
+
   char str_changed[800] = {
       0,
   };
@@ -103,28 +101,79 @@ void multiple_change(char *str,int length, int index, int k) {
     printf("%c", str[i]);
   }
 
-  
-for (int j = 1; j <= 26; j++) {
-  
-  printf("\n%02d    Changed : ",j);
- 
+  for (int j = 1; j <= 26; j++) {
+
+    printf("\n%02d    Changed : ", j);
+
     for (int i = 0; i < length; i++) {
-    if (str[i]!=' ')
-        {
+      if (str[i] != ' ') {
 
         int last = ((str[i] - 64) * index + j) % 26;
-      if (last != 0) {
-        str_changed[i] = last + 64;
+        if (last != 0) {
+          str_changed[i] = last + 64;
+        } else {
+          str_changed[i] = last + 90;
+        }
+        printf("%c", str_changed[i]);
       } else {
-        str_changed[i] = last + 90;
-      }
-      printf("%c", str_changed[i]);
-    } else {
-      printf(" ");
-    };
+        printf(" ");
+      };
+    }
+    printf("\n");
   }
-  printf("\n");
-
-  }
-
 }
+
+// 배열 출력
+void printArray(int arr[], int size) {
+  printf("[");
+  for (int i = 0; i < size; i++) {
+    printf(" %d,", arr[i]);
+  }
+  printf(" ]\n");
+}
+
+// string 배열 출력
+void printStringArray(char *arr[], int size) {
+  for (int i = 0; i < size; i++) {
+    printf("%s\n", arr[i]);
+  }
+}
+
+//선택 정렬
+void selection_sort(int arr[], int size) {
+  printArray(arr, size);
+  for (int i = 0; i < size; i++) {
+    int min_index = i;
+    for (int j = i + 1; j < size; j++) {
+      if (arr[min_index] > arr[j]) {
+        min_index = j;
+      }
+    }
+    swap(&arr[min_index], &arr[i]);
+    printArray(arr, size);
+  }
+}
+//
+
+//문자열 swap
+void swap_string(char **a, char** b) { 
+    char *temp = *a;
+  *a = *b;
+    *b = temp;
+}
+
+//문자열에 대한 포인터 배열 정렬
+void selection_sort_str(char *arr[], int size) {
+  for (int i = 0; i < size; i++) {
+    int min_index = i;
+    for (int j = i + 1; j < size; j++) {
+      if (strcmp(arr[min_index], arr[j]) > 0) {
+        min_index = j;
+      }
+    }
+    swap_string(&arr[min_index],&arr[i]);
+  }
+  printStringArray(arr, size);
+}
+
+//문자열 받아서 대문자로 바꾸기
